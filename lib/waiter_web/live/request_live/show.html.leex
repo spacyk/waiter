@@ -1,0 +1,27 @@
+<h1>Show Request</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, WaiterWeb.RequestLive.FormComponent,
+    id: @request.id,
+    title: @page_title,
+    action: @live_action,
+    request: @request,
+    return_to: Routes.request_show_path(@socket, :show, @request) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Table:</strong>
+    <%= @request.table %>
+  </li>
+
+  <li>
+    <strong>Body:</strong>
+    <%= @request.body %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.request_show_path(@socket, :edit, @request), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.request_index_path(@socket, :index) %></span>
