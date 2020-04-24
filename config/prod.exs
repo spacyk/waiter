@@ -10,6 +10,7 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :waiter, WaiterWeb.Endpoint,
+  http: [port: {:system, "PORT"}],
   url: [scheme: "https", host: "stark-wave-86933.herokuapp.com", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json"
