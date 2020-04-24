@@ -11,7 +11,8 @@ defmodule WaiterWeb.Endpoint do
   ]
 
   socket "/socket", WaiterWeb.UserSocket,
-    websocket: true,
+    websocket: [timeout: 45_000],
+    # websocket: true, - Commented for Heroku
     longpoll: false
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]

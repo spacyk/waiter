@@ -11,8 +11,13 @@ database_url =
     For example: ecto://USER:PASS@HOST/DATABASE
     """
 
+#config :waiter, Waiter.Repo,
+#  # ssl: true,
+#  url: database_url,
+#  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+
 config :waiter, Waiter.Repo,
-  # ssl: true,
+  ssl: true,
   url: database_url,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
