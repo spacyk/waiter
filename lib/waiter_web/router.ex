@@ -8,6 +8,11 @@ defmodule WaiterWeb.Router do
     plug :put_root_layout, {WaiterWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+
+    # Custom
+    plug WaiterWeb.Plugs.Locale, "en"
+    plug WaiterWeb.Plugs.Session, ""
+
   end
 
   pipeline :api do
@@ -17,13 +22,20 @@ defmodule WaiterWeb.Router do
   scope "/", WaiterWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    get "/", PageController, :index
+    get "/test/:messenger", PageController, :show
+
+
     live "/requests", RequestLive.Index, :index
     live "/requests/new", RequestLive.Index, :new
     live "/requests/:id/edit", RequestLive.Index, :edit
-
     live "/requests/:id", RequestLive.Show, :show
     live "/requests/:id/show/edit", RequestLive.Show, :edit
+
+    live "/restaurant", RestaurantLive.Index, :index
+
+
+    # live "/", PageLive, :index # No need for this
 
   end
 

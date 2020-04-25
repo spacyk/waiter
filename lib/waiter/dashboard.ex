@@ -89,6 +89,7 @@ defmodule Waiter.Dashboard do
   """
   def delete_request(%Request{} = request) do
     Repo.delete(request)
+    |> broadcast(:request_deleted)
   end
 
   @doc """

@@ -1,4 +1,4 @@
-defmodule WaiterWeb.RequestLive.Index do
+defmodule WaiterWeb.RestaurantLive.Index do
   use WaiterWeb, :live_view
 
   alias Waiter.Dashboard
@@ -49,6 +49,10 @@ defmodule WaiterWeb.RequestLive.Index do
 
   def handle_info({:request_updated, request}, socket) do
     {:noreply, update(socket, :requests, fn requests -> [request | requests] end)}
+  end
+
+  def handle_info({:request_deleted, request}, socket) do
+    {:noreply, update(socket, :requests, fn [request | requests] -> [requests] end)}
   end
 
   defp fetch_requests do

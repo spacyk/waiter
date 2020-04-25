@@ -1,4 +1,4 @@
-<h1>Your orders</h1>
+<h1>Pick order you want to process.</h1>
 <br>
 <%= if @live_action in [:new, :edit] do %>
   <%= live_modal @socket, WaiterWeb.RequestLive.FormComponent,
@@ -13,14 +13,11 @@
 
 <div id="requests" phx-update="prepend">
   <%= for request <- @requests do %>
-    <%= live_component @socket, WaiterWeb.RequestLive.RequestComponent, id: request.id, request: request %>
+
+    <%= live_component @socket, WaiterWeb.RestaurantLive.RequestComponent, id: request.id, request: request %>
+
   <% end %>
 </div>
-
-<span><%= live_patch "New Request", to: Routes.request_index_path(@socket, :new) %></span>
-
-
-
 
 
 
