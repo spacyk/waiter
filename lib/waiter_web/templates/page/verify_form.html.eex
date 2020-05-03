@@ -1,0 +1,6 @@
+<%= form_for @conn, Routes.page_path(@conn, :verify), fn f -> %>
+
+  <%= label f, :code %>
+  <%= text_input f, :code %>
+  <%= submit "Enter" %>
+<% end %>

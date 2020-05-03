@@ -5,12 +5,12 @@ defmodule WaiterWeb.Plugs.Session do
   def init(default), do: default
 
   def call(conn, _opts) do
+    session = get_session(conn)
     IO.puts """
-    Test! Test! Test!
-    Conn: #{inspect(conn)}
     Session!!!
-    #{inspect(get_session(conn))}
+    #{inspect(session)}
     """
+    x = session['test']
     conn
   end
 

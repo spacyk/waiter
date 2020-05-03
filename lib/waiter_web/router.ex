@@ -1,6 +1,11 @@
 defmodule WaiterWeb.Router do
   use WaiterWeb, :router
 
+  def fetch_status(conn, _) do
+    conn
+    |> assign(:restaurant, get_session(conn, :restaurant))
+  end
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -8,6 +13,7 @@ defmodule WaiterWeb.Router do
     plug :put_root_layout, {WaiterWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :fetch_status
 
     # Custom
     plug WaiterWeb.Plugs.Locale, "en"
@@ -19,12 +25,20 @@ defmodule WaiterWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :session do
+    plug WaiterWeb.Plugs.CheckSession
+  end
+
   scope "/", WaiterWeb do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/test/:messenger", PageController, :show
+    get "/verify", PageController, :verify
+    post "/verify", PageController, :verify
+    get "/del", PageController, :del_session
 
+    get "/test/:messenger", PageController, :show
+    live "/requestss/:id/edit", RequestLive.Index, :edit
 
     live "/requests", RequestLive.Index, :index
     live "/requests/new", RequestLive.Index, :new
@@ -32,8 +46,11 @@ defmodule WaiterWeb.Router do
     live "/requests/:id", RequestLive.Show, :show
     live "/requests/:id/show/edit", RequestLive.Show, :edit
 
-    live "/restaurant", RestaurantLive.Index, :index
+    scope "/restaurant", RestaurantLive do
+      pipe_through :session
 
+      live "/", Index, :index
+    end
 
     # live "/", PageLive, :index # No need for this
 
