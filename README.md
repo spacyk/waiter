@@ -2,9 +2,9 @@
 
 *This project is experimental and is not actively maintained.
 
-Real-time socket based web application 
-intended for restaurants to be used as **real-time** order management system.
-Any new order from any customer is instantly visible on a waiter screen to be processed.
+Socket based web application to be used as **real-time** order management system for restaurants.
+Any new order from any customer is instantly visible on a waiter screen and ready to be processed.
+This is just a very simple prototype.
 
 Project is based on Elixir Phoenix framework, and their interesting **Live View** feature.
 
